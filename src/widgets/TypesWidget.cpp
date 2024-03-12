@@ -195,9 +195,11 @@ TypesWidget::TypesWidget(MainWindow *main)
         tree->showItemsNumber(types_proxy_model->rowCount());
     });
 
+    actionShowVarsAndGlobalsOfType = new QAction(tr("Show Variables and Globals of this Type"), this);
     actionViewType = new QAction(tr("View Type"), this);
     actionEditType = new QAction(tr("Edit Type"), this);
 
+    connect(actionShowVarsAndGlobalsOfType, &QAction::triggered, [this]() { viewType(true); });
     connect(actionViewType, &QAction::triggered, [this]() { viewType(true); });
     connect(actionEditType, &QAction::triggered, [this]() { viewType(false); });
     connect(ui->typesTreeView, &QTreeView::doubleClicked, this,
@@ -247,11 +249,12 @@ void TypesWidget::showTypesContextMenu(const QPoint &pt)
 
     QMenu menu(ui->typesTreeView);
     menu.addAction(ui->actionLoad_New_Types);
-
     if (index.isValid()) {
         TypeDescription t = index.data(TypesModel::TypeDescriptionRole).value<TypeDescription>();
+        if(!t.is_atomic){
+            menu.addAction(actionShowVarsAndGlobalsOfType);
+        }
         if (t.category != "Primitive") {
-            // Add "Link To Address" option
             menu.addAction(actionViewType);
             menu.addAction(actionEditType);
         }

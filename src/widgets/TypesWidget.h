@@ -123,6 +123,7 @@ private:
     TypesSortFilterProxyModel *types_proxy_model;
     QList<TypeDescription> types;
     CutterTreeWidget *tree;
+    QAction *actionShowVarsAndGlobalsOfType;
     QAction *actionViewType;
     QAction *actionEditType;
 

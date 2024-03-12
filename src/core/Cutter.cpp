@@ -3854,6 +3854,7 @@ QList<TypeDescription> CutterCore::getBaseType(RzBaseTypeKind kind, const char *
         exp.size = rz_type_db_base_get_bitsize(core->analysis->typedb, type);
         exp.format = rz_base_type_as_format(core->analysis->typedb, type);
         exp.category = tr(category);
+        exp.is_atomic = rz_type_is_atomic(core->analysis->typedb, type->type);
         types << exp;
     }
     rz_list_free(ts);

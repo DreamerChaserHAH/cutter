@@ -78,6 +78,7 @@ struct TypeDescription
     int size;
     QString format;
     QString category;
+    bool is_atomic;
 };
 
 struct SearchDescription
